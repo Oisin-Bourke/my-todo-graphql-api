@@ -16,6 +16,9 @@ const server = new ApolloServer({
 	playground: true,
 })
 
-server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
-	console.log(`GraphQl Apollo Server running at ${url}`)
-})
+server
+	.listen({ port: process.env.PORT || 4000 })
+	.then(({ url }) => {
+		console.log(`GraphQl Apollo Server running at ${url}`)
+	})
+	.catch(() => console.log(`Error. Faied to connect to Apollo Server.`))

@@ -1,4 +1,7 @@
 const { DataSource } = require("apollo-datasource")
+const db = require("../_helpers/db")
+
+const ToDo = db.ToDo
 
 class ToDoAPI extends DataSource {
 	constructor() {
@@ -7,8 +10,8 @@ class ToDoAPI extends DataSource {
 
 	initialize(config) {}
 
-	getToDos() {
-		return mockData
+	async getToDos() {
+		return await ToDo.find({})
 	}
 }
 
