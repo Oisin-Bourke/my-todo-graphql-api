@@ -8,5 +8,7 @@ module.exports = gql`
 	}
 	type Query {
 		todos: [ToDo]
+		todoById(id: ID): ToDo
+		todosByIsComplete(isComplete: Boolean): [ToDo]
 	}
 `

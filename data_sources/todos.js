@@ -11,7 +11,15 @@ class ToDoAPI extends DataSource {
 	initialize(config) {}
 
 	async getToDos() {
-		return await ToDo.find({})
+		return await ToDo.find().exec()
+	}
+
+	async getToDoById(id) {
+		return await ToDo.findById(id).exec()
+	}
+
+	async getToDosByIsComplete(isComplete) {
+		return await ToDo.find({ isComplete: isComplete }).exec()
 	}
 }
 

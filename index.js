@@ -1,4 +1,4 @@
-const { ApolloServer } = require("apollo-server")
+const { ApolloServer, ApolloError } = require("apollo-server")
 const ToDoAPI = require("./data_sources/todos")
 
 const typeDefs = require("./schema.js")
@@ -14,6 +14,15 @@ const server = new ApolloServer({
 	dataSources,
 	introspection: true,
 	playground: true,
+	//Global error handling
+	/* 
+	formatError: (err) => {
+		if(err.extensions.code === "INTERNAL_SERVER_ERROR") {
+			return new ApolloError("We are having some trouble :( ", "ERROR")
+		}
+		return err
+	}
+	*/
 })
 
 server
