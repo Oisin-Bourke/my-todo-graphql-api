@@ -21,24 +21,32 @@ class ToDoAPI extends DataSource {
 	async getToDosByIsComplete(isComplete) {
 		return await ToDo.find({ isComplete: isComplete }).exec()
 	}
+
+	async toggleToDoIsComplete(id) {
+		const todo = await ToDo.findById(id).exec()
+		todo.isComplete = !todo.isComplete
+		await todo.save()
+		return todo
+	}
+
+	async updateToDoText(id, text) {
+		const todo = await ToDo.findById(id).exec()
+		todo.text = text
+		await todo.save()
+		return todo
+	}
+
+	async addNewToDo(todo) {
+		const newTodo = new ToDo({
+			text: todo.text,
+			isComplete: todo.isComplete
+		})
+		return await ToDo.create(newTodo)
+	}
+
+	async deleteToDo(id) {
+		return await ToDo.findByIdAndDelete(id)
+	}
 }
 
 module.exports = ToDoAPI
-
-const mockData = [
-	{
-		id: 1,
-		text: "Something to do one...",
-		isComplete: false,
-	},
-	{
-		id: 2,
-		text: "Something to do two...",
-		isComplete: false,
-	},
-	{
-		id: 3,
-		text: "Something to do three...",
-		isComplete: false,
-	},
-]
