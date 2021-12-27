@@ -6,9 +6,13 @@ module.exports = gql`
 		text: String
 		isComplete: Boolean
 	}
+	type ErrorToDoNotFound {
+		message: String
+	}
+	union ToDoResult = ToDo | ErrorToDoNotFound
 	type Query {
 		todos: [ToDo]
-		todoById(id: ID): ToDo
+		todoById(id: ID): ToDoResult
 		todosByIsComplete(isComplete: Boolean): [ToDo]
 	}
 	type Mutation {

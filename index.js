@@ -15,14 +15,13 @@ const server = new ApolloServer({
 	introspection: true,
 	playground: true,
 	//Global error handling
-	/* 
 	formatError: (err) => {
+		console.log(err)
 		if(err.extensions.code === "INTERNAL_SERVER_ERROR") {
-			return new ApolloError("We are having some trouble :( ", "ERROR")
+			return new ApolloError("We are having some trouble :( ", "INTERNAL_SERVER_ERROR")
 		}
 		return err
 	}
-	*/
 })
 
 server
