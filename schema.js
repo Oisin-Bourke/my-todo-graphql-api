@@ -11,15 +11,15 @@ module.exports = gql`
 	}
 	union ToDoResult = ToDo | ErrorToDoNotFound
 	type Query {
-		todos: [ToDo]
 		todoById(id: ID): ToDoResult
+		todos: [ToDo]
 		todosByIsComplete(isComplete: Boolean): [ToDo]
 	}
 	type Mutation {
-		toggleToDoIsComplete(id: ID): ToDo
-		updateToDoText(id: ID, text: String): ToDo
 		addNewToDo(todo: ToDoInput): ToDo
-		deleteToDo(id: ID): ToDo
+		toggleToDoIsComplete(id: ID): ToDoResult
+		updateToDoText(id: ID, text: String): ToDoResult
+		deleteToDo(id: ID): ToDoResult
 	}
 	input ToDoInput {
 		text: String

@@ -10,20 +10,29 @@ class ToDoAPI extends DataSource {
 
 	initialize(config) {}
 
-	async getToDos() {
-		return await ToDo.find().exec()
-	}
-
 	async getToDoById(id) {
 		return await ToDo.findById(id).exec()
+	}
+
+	async getToDos() {
+		return await ToDo.find().exec()
 	}
 
 	async getToDosByIsComplete(isComplete) {
 		return await ToDo.find({ isComplete: isComplete }).exec()
 	}
 
+	async addNewToDo(todo) {
+		const newTodo = new ToDo({
+			text: todo.text,
+			isComplete: todo.isComplete,
+		})
+		return await ToDo.create(newTodo)
+	}
+
 	async toggleToDoIsComplete(id) {
 		const todo = await ToDo.findById(id).exec()
+		if (!todo) return todo
 		todo.isComplete = !todo.isComplete
 		await todo.save()
 		return todo
@@ -31,17 +40,10 @@ class ToDoAPI extends DataSource {
 
 	async updateToDoText(id, text) {
 		const todo = await ToDo.findById(id).exec()
+		if (!todo) return todo
 		todo.text = text
 		await todo.save()
 		return todo
-	}
-
-	async addNewToDo(todo) {
-		const newTodo = new ToDo({
-			text: todo.text,
-			isComplete: todo.isComplete
-		})
-		return await ToDo.create(newTodo)
 	}
 
 	async deleteToDo(id) {
